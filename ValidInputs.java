@@ -88,4 +88,34 @@ public class ValidInputs{
         return IntCMDInputSmallerThan(0);
     }
 
+    public static boolean CMDInputAnswerYesNo(String yesNoQuestion){
+        Scanner scan = new Scanner(System.in);
+        boolean allIsFine;
+        boolean answerIsYes = true;
+        String errorMessage, CmdInput;
+        char firstChar;
+        System.out.print(yesNoQuestion + "(Y/n)? ");
+        do {
+            errorMessage = "";
+            CmdInput = scan.nextLine();
+            if (CmdInput.length() == 1) {
+                firstChar = CmdInput.toLowerCase().charAt(0);
+                answerIsYes = firstChar == 'y';
+                if (!answerIsYes && (firstChar != 'n')) errorMessage = "Your answer must be 'y' or 'n'. (Uppercase allowed)";
+            }
+            else {
+                errorMessage = "A valid input in this case only implies one caracter, either the first of 'yes' or 'no'.";
+            }
+            
+            allIsFine = errorMessage.length() == 0;
+
+            if (!allIsFine) {
+                errorMessage += " Please restart: ";
+                System.out.println(errorMessage);
+            }
+        } while (!allIsFine);
+        scan.close();
+        return answerIsYes;
+    }
+
 }

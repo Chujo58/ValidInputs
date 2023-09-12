@@ -1,18 +1,16 @@
 #include <iostream>
 #include <string>
 #include <format>
+#include <algorithm>
 
 #define get_name(x) #x
 
 using namespace std;
 
-// class ValidInputs {
-//  private:
-//     template<class T> static T CmdInput(bool hasAMin, bool hasAMax, bool strict, T min, T max, string restriction);
-//  public:
-//     template<class T> static T CMDInput();
-//     template<class T> static T CMDInputGreaterThan(T minimumValue);
-// };
+std::string lower(std::string s){
+    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c){ return std::tolower(c); });
+    return s;
+}
 
 template<class T>
 class ValidInputs {
@@ -100,6 +98,35 @@ class ValidInputs {
 
     static T CMDInputStrictlyNegative(){
         return CMDInputSmallerThan(0);
+    }
+
+    static bool CMDInputAnswer(string question){
+        bool allIsFine;
+        bool answerIsYes = true;
+        string errorMessage;
+        string cmdInput;
+        char firstCharacter;
+
+        std::cout << question + " (Y/n)? " << std::endl;
+        do {
+            errorMessage = "";
+            std::cin >> cmdInput;
+            if (cmdInput.length() == 1) {
+                firstCharacter = lower(cmdInput)[0];
+                answerIsYes = firstCharacter == 'y';
+                if (!answerIsYes && (firstCharacter != 'n')) errorMessage = "Your answer must be 'y' or 'n'. (Uppercase allowed)";
+            }
+            else {
+                errorMessage = "A valid input in this case only implies one character, either the first of 'yes' or 'no'.";
+            }
+
+            allIsFine = errorMessage.length() == 0;
+            if (!allIsFine) {
+                errorMessage += " Please restart: ";
+                std::cout << errorMessage << std::endl;
+            }
+        } while (!allIsFine)
+        return answerIsYes;
     }
 };
 

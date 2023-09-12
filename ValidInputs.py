@@ -122,7 +122,7 @@ class StrCmdInput:
         CmdInput = str(None)
         firstCharacter = str(None)
 
-        print(question + "(Y/n)? ")
+        print(question + " (Y/n)? ")
         while not(allIsFine):
             errorMessage = ""
             CmdInput = str(input())
@@ -132,12 +132,12 @@ class StrCmdInput:
                 if (not(answerIsYes) and (firstCharacter != 'n')):
                     errorMessage = "Your answer must be 'y' or 'n'. (Uppercase allowed)"
             else:
-                errorMessage = "A valid input in this case only implies one caracter, either the first of 'yes' or 'no'."
+                errorMessage = "A valid input in this case only implies one character, either the first of 'yes' or 'no'."
             
             allIsFine = len(errorMessage) == 0
 
             if not(allIsFine):
-                errorMessage = "Please restart: "
+                errorMessage += " Please restart: "
                 print(errorMessage)
 
         return answerIsYes
