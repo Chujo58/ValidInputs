@@ -125,7 +125,7 @@ class ValidInputs {
                 errorMessage += " Please restart: ";
                 std::cout << errorMessage << std::endl;
             }
-        } while (!allIsFine)
+        } while (!allIsFine);
         return answerIsYes;
     }
 };
